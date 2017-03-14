@@ -4,5 +4,7 @@ python /usr/bin/sshtotp.py
 
 if [ "$?" -eq "1" ]
 then
-    pkill -9 -t pts/0 
+    pkill -9 -t pts/0
+else
+    /bin/bash
 fi
