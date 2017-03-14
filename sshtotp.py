@@ -3,6 +3,7 @@ import pyotp
 import getpass
 import json
 import os
+import argparse
 totp = None
 
 def readOTPKey():
@@ -15,13 +16,14 @@ def readOTPKey():
     except IOError:
         return None
 
-def saveOTPKey(key):
+def saveOTPKey():
+    keyNew = pyotp.random_base32()
     user = getpass.getuser()
     keyfile = file(os.getenv("HOME")+"/.totpKey", "w")
-    str_key = json.dumps({"key": key})
+    str_key = json.dumps({"key": keyNew})
     keyfile.write(str_key)
     keyfile.close()
-    return True
+    return keyNew
 
 def verifyCode(code):
     global totp
@@ -31,13 +33,21 @@ def setup():
     global totp
     key = readOTPKey()
     if key is None:
-        keyNew = pyotp.random_base32()
-        saveOTPKey(keyNew)
-        totp = pyotp.TOTP(keyNew)
+        exit(0)
     else:
         totp = pyotp.TOTP(key)
+        return key
 
 if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-e', '--enable', help='Enable totp for the current user.', action="store_true")
+    args = parser.parse_args()
+    if args.enable:
+        key = saveOTPKey()
+        print "TOTP Authentication enabled. Your secret key is: " + key
+        exit(0)
+
     setup()
     while True:
         try:
