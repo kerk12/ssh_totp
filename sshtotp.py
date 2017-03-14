@@ -36,7 +36,6 @@ def setup():
         exit(0)
     else:
         totp = pyotp.TOTP(key)
-        print key
         return key
 
 if __name__ == "__main__":
