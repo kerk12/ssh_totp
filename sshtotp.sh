@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-python /usr/bin/sshtotp
+python /usr/bin/sshtotp.py
 
 if [ "$?" -eq "1" ]
 then
