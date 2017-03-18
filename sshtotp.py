@@ -51,10 +51,15 @@ if __name__ == "__main__":
     setup()
     while True:
         try:
-            code = int(raw_input("Please input your OTP: "))
-            if verifyCode(code):
+            code = raw_input("Please input your OTP: ")
+            if len(code) != 6:
+                raise ValueError
+            if verifyCode(int(code)):
                 exit(0)
             else:
                 print "Invalid code supplied"
         except KeyboardInterrupt:
             exit(1)
+        except ValueError:
+            """ A ValueError exception gets raised whenever the code string cannot be converted to an integer, or when it isn't of the required length. """
+            print "Please enter a valid 6-digit OTP code"
