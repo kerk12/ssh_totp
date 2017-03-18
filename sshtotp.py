@@ -55,7 +55,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-e', '--enable', help='Enable totp for the current user.', action="store_true")
     parser.add_argument('-d', '--disable', help="Disable TOTP authentication for the current user.", action="store_true")
-    parser.add_argument('-v', "--view-key", help="View the Secret key set", action="store_true")
+    parser.add_argument('-v', "--view", help="View the Secret key set", action="store_true")
     args = parser.parse_args()
 
     if args.enable:
@@ -71,7 +71,7 @@ if __name__ == "__main__":
         else:
             print "TOTP Authentication hasn't been enabled for this user."
             exit(1)
-    elif args.v:
+    elif args.view:
         key = readOTPKey()
         if key is not None:
             print "Your secret key is:" + key
