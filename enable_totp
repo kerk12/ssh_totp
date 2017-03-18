@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-python /usr/bin/sshtotp.py --enable
+# TODO Remove it if doesn't seem necessary.
+
+python /usr/bin/sshtotp --enable
