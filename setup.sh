@@ -6,7 +6,7 @@ then
 fi
 
 chmod 555 *
-cp sshtotp.py /usr/bin
+cp sshtotp.py /usr/bin/sshtotp
 cp sshtotp.sh /usr/bin
 cp enable_totp /usr/bin
 echo 'ForceCommand /usr/bin/sshtotp.sh' >> /etc/ssh/sshd_config
