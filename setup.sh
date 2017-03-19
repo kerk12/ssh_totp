@@ -9,6 +9,6 @@ chmod 555 *
 cp sshtotp.py /usr/bin/sshtotp
 cp sshtotp.sh /usr/bin
 cp enable_totp /usr/bin
-echo 'ForceCommand /usr/bin/sshtotp.sh' >> /etc/ssh/sshd_config
+echo 'ForceCommand /usr/bin/sshtotp.sh && exit' >> /etc/ssh/sshd_config
 echo 'SSH OTP has been installed successfully. You can enable TOTP authentication for a user by issuing the command'
 echo 'sshtotp --enable'
