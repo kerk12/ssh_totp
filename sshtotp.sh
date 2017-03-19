@@ -2,9 +2,7 @@
 
 python /usr/bin/sshtotp
 
-if [ "$?" -eq "1" ]
+if [ "$?" -eq "0" ]
 then
-    pkill -9 -t pts/0
-else
     /bin/bash
 fi
