@@ -29,8 +29,8 @@ def saveOTPKey():
     str_key = json.dumps({"key": keyNew})
     keyfile.write(str_key)
     keyfile.close()
-    # Change the file's permissions to be read from the current executing user only
-    os.chmod(path, 0400)
+    # Change the file's permissions to be read & written (needed for disabling TOTP) from the current executing user only
+    os.chmod(path, 0600)
     return keyNew
 
 def verifyCode(code):
