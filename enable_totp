@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-# TODO Remove it if doesn't seem necessary.
-
-python /usr/bin/sshtotp --enable

@@ -56,8 +56,12 @@ if __name__ == "__main__":
     parser.add_argument('-e', '--enable', help='Enable totp for the current user.', action="store_true")
     parser.add_argument('-d', '--disable', help="Disable TOTP authentication for the current user.", action="store_true")
     parser.add_argument('-v', "--view", help="View the Secret key set", action="store_true")
+    parser.add_argument("-c", "--copyright", help="Show Copyright", action="store_true")
     args = parser.parse_args()
 
+    if args.copyright:
+        print """SSH TOTP Authentication Script \nCopyright (C) 2017 Kyriakos Giannakis <kerk12gr@gmail.com>\nReleased under the GNU GPL v3.0 Licence"""
+        exit(0)
     if args.enable:
         key = saveOTPKey()
         print "TOTP Authentication enabled. Your secret key is: " + key
