@@ -1,6 +1,6 @@
 ### A Python based 2FA Time-based One Time Password script for authenticating in SSH.
 
-Developed by Kyriakos Giannakis
+Developed by Kyriakos Giannakis (kerk12gr@gmail.com).
 
 ##### Install:
 0. ```git clone ...```
