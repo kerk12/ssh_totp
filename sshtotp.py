@@ -53,7 +53,7 @@ def setup():
 def readConfig():
     """ Read the config file and parse it """
     config_file = open("/etc/sshtotp/config.yml", "r")
-    config = yaml.dump(yaml.load(config_file))
+    config = yaml.load(config_file)
     config_file.close()
     return config
 
@@ -98,7 +98,7 @@ if __name__ == "__main__":
     # TODO implement config
 
     if "max_tries" in config:
-        max_tries = config["max_tries"]
+        max_tries = config.max_tries
     else:
         max_tries = 0
 
