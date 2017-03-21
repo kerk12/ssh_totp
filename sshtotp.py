@@ -4,8 +4,10 @@ import getpass
 import json
 import os
 import argparse
+import yaml
 totp = None
 path = os.getenv("HOME") + "/.totpKey"
+config = None
 
 """
     All TOTP keys are in JSON form, the config is in YAML to allow comments.
@@ -48,6 +50,13 @@ def setup():
         totp = pyotp.TOTP(key)
         return key
 
+def readConfig():
+    """ Read the config file and parse it """
+    config_file = open("/etc/sshtotp/config.yml", "r")
+    config = yaml.dump(yaml.load(config_file))
+    config_file.close()
+    return config
+
 if __name__ == "__main__":
 
     # Get the command line arguments.
@@ -58,6 +67,8 @@ if __name__ == "__main__":
     parser.add_argument('-v', "--view", help="View the Secret key set", action="store_true")
     parser.add_argument("-c", "--copyright", help="Show Copyright", action="store_true")
     args = parser.parse_args()
+
+    config = readConfig()
 
     if args.copyright:
         print """SSH TOTP Authentication Script \nCopyright (C) 2017 Kyriakos Giannakis <kerk12gr@gmail.com>\nReleased under the GNU GPL v3.0 Licence"""
@@ -85,17 +96,44 @@ if __name__ == "__main__":
 
     setup()
     # TODO implement config
-    while True:
-        try:
-            code = raw_input("Please input your OTP: ")
-            if len(code) != 6:
-                raise ValueError
-            if verifyCode(int(code)):
-                exit(0)
-            else:
-                print "Invalid code supplied"
-        except KeyboardInterrupt:
-            exit(1)
-        except ValueError:
-            # A ValueError exception gets raised whenever the code string cannot be converted to an integer, or when it isn't of the required length.
-            print "Please enter a valid 6-digit OTP code"
+
+    if "max_entries" in config:
+        max_entries = config["max_entries"]
+    else:
+        max_entries = 0
+
+    if max_entries == 0:
+        while True:
+            try:
+                code = raw_input("Please input your OTP: ")
+                if len(code) != 6:
+                    raise ValueError
+                if verifyCode(int(code)):
+                    exit(0)
+                else:
+                    print "Invalid code supplied"
+            except KeyboardInterrupt:
+                exit(1)
+            except ValueError:
+                # A ValueError exception gets raised whenever the code string cannot be converted to an integer, or when it isn't of the required length.
+                print "Please enter a valid 6-digit OTP code"
+    else:
+        count = 0
+        while count < max_entries:
+            try:
+                code = raw_input("Please input your OTP: ")
+                if len(code) != 6:
+                    raise ValueError
+                if verifyCode(int(code)):
+                    exit(0)
+                else:
+                    print "Invalid code supplied"
+            except KeyboardInterrupt:
+                exit(1)
+            except ValueError:
+                # A ValueError exception gets raised whenever the code string cannot be converted to an integer, or when it isn't of the required length.
+                print "Please enter a valid 6-digit OTP code"
+            finally:
+                count += 1
+        print "Max number of tries exceeded. You have been logged out."
+        exit(1)

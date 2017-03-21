@@ -1,0 +1,5 @@
+# Sample config file for SSH_TOTP
+# This file will be copied to /etc/sshtotp when setup.sh is run.
+
+# Max number of tries per login attempt:
+max_tries: 3
