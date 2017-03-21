@@ -97,12 +97,12 @@ if __name__ == "__main__":
     setup()
     # TODO implement config
 
-    if "max_entries" in config:
-        max_entries = config["max_entries"]
+    if "max_tries" in config:
+        max_tries = config["max_tries"]
     else:
-        max_entries = 0
+        max_tries = 0
 
-    if max_entries == 0:
+    if max_tries == 0:
         while True:
             try:
                 code = raw_input("Please input your OTP: ")
@@ -119,7 +119,7 @@ if __name__ == "__main__":
                 print "Please enter a valid 6-digit OTP code"
     else:
         count = 0
-        while count < max_entries:
+        while count < max_tries:
             try:
                 code = raw_input("Please input your OTP: ")
                 if len(code) != 6:
