@@ -5,6 +5,7 @@ import json
 import os
 import argparse
 import yaml
+from time import sleep
 totp = None
 path = os.getenv("HOME") + "/.totpKey"
 config = None
@@ -95,14 +96,18 @@ if __name__ == "__main__":
         exit(0)
 
     setup()
-    # TODO implement config
-
     if "max_tries" in config:
         max_tries = config["max_tries"]
     else:
         max_tries = 0
 
+    if "delay" in config:
+        delay = config["delay"]
+    else:
+        delay = 0
+
     count = 0
+
     while True:
         if max_tries > 0:
             if count == max_tries:
@@ -124,3 +129,5 @@ if __name__ == "__main__":
         finally:
             if max_tries > 0:
                 count += 1
+            if delay > 0:
+                sleep(delay)
