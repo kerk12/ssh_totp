@@ -102,38 +102,25 @@ if __name__ == "__main__":
     else:
         max_tries = 0
 
-    if max_tries == 0:
-        while True:
-            try:
-                code = raw_input("Please input your OTP: ")
-                if len(code) != 6:
-                    raise ValueError
-                if verifyCode(int(code)):
-                    exit(0)
-                else:
-                    print "Invalid code supplied"
-            except KeyboardInterrupt:
+    count = 0
+    while True:
+        if max_tries > 0:
+            if count == max_tries - 1:
+                print "You have exceeded the allowed number of tries. You have been logged out."
                 exit(1)
-            except ValueError:
-                # A ValueError exception gets raised whenever the code string cannot be converted to an integer, or when it isn't of the required length.
-                print "Please enter a valid 6-digit OTP code"
-    else:
-        count = 0
-        while count < max_tries:
-            try:
-                code = raw_input("Please input your OTP: ")
-                if len(code) != 6:
-                    raise ValueError
-                if verifyCode(int(code)):
-                    exit(0)
-                else:
-                    print "Invalid code supplied"
-            except KeyboardInterrupt:
-                exit(1)
-            except ValueError:
-                # A ValueError exception gets raised whenever the code string cannot be converted to an integer, or when it isn't of the required length.
-                print "Please enter a valid 6-digit OTP code"
-            finally:
+        try:
+            code = raw_input("Please input your OTP: ")
+            if len(code) != 6:
+                raise ValueError
+            if verifyCode(int(code)):
+                exit(0)
+            else:
+                print "Invalid code supplied"
+        except KeyboardInterrupt:
+            exit(1)
+        except ValueError:
+            # A ValueError exception gets raised whenever the code string cannot be converted to an integer, or when it isn't of the required length.
+            print "Please enter a valid 6-digit OTP code"
+        finally:
+            if max_tries > 0:
                 count += 1
-        print "Max number of tries exceeded. You have been logged out."
-        exit(1)
