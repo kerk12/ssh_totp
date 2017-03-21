@@ -105,7 +105,7 @@ if __name__ == "__main__":
     count = 0
     while True:
         if max_tries > 0:
-            if count == max_tries - 1:
+            if count == max_tries:
                 print "You have exceeded the allowed number of tries. You have been logged out."
                 exit(1)
         try:
