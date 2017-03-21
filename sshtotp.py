@@ -120,6 +120,8 @@ if __name__ == "__main__":
             if verifyCode(int(code)):
                 exit(0)
             else:
+                if delay > 0:
+                    sleep(delay)
                 print "Invalid code supplied"
         except KeyboardInterrupt:
             exit(1)
@@ -129,5 +131,3 @@ if __name__ == "__main__":
         finally:
             if max_tries > 0:
                 count += 1
-            if delay > 0:
-                sleep(delay)
