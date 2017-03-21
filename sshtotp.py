@@ -96,6 +96,10 @@ if __name__ == "__main__":
         exit(0)
 
     setup()
+
+    """
+    Config checking
+    """
     if "max_tries" in config:
         max_tries = config["max_tries"]
     else:
@@ -109,6 +113,7 @@ if __name__ == "__main__":
     count = 0
 
     while True:
+        # Checking for max_tries
         if max_tries > 0:
             if count == max_tries:
                 print "You have exceeded the allowed number of tries. You have been logged out."
@@ -120,6 +125,7 @@ if __name__ == "__main__":
             if verifyCode(int(code)):
                 exit(0)
             else:
+                # Add a delay, if it is configured.
                 if delay > 0:
                     sleep(delay)
                 print "Invalid code supplied"
@@ -129,5 +135,6 @@ if __name__ == "__main__":
             # A ValueError exception gets raised whenever the code string cannot be converted to an integer, or when it isn't of the required length.
             print "Please enter a valid 6-digit OTP code"
         finally:
+            # Increase the try counter if max_tries are configured.
             if max_tries > 0:
                 count += 1
