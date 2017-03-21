@@ -98,7 +98,7 @@ if __name__ == "__main__":
     # TODO implement config
 
     if "max_tries" in config:
-        max_tries = config.max_tries
+        max_tries = config["max_tries"]
     else:
         max_tries = 0
 
