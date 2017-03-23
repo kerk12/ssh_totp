@@ -110,6 +110,15 @@ if __name__ == "__main__":
     else:
         delay = 0
 
+    if "enable_script" in config:
+        enabled = config["enable_script"]
+    else:
+        enabled = True
+
+    # If the script is disabled via the config, log the user in immediately.
+    if not enabled:
+        exit(0)
+
     count = 0
 
     while True:

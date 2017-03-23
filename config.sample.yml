@@ -1,6 +1,10 @@
 # Sample config file for SSH_TOTP
 # This file will be copied to /etc/sshtotp when setup.sh is run.
 
+# Master switch for the script. Change it to False to disable the script.
+# Default: True
+enable_script: True
+
 # Max number of tries per login attempt (0 = infinite):
 max_tries: 3
 
